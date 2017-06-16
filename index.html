@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>html { font-size: 14px; font-family: Arial, Helvetica, sans-serif; }</style>
+    <title>Herbalife Test</title>
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.2.504/styles/kendo.common-material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.2.504/styles/kendo.material.min.css" />
+    <link rel="stylesheet" href="https://kendo.cdn.telerik.com/2017.2.504/styles/kendo.material.mobile.min.css" />
+    <link rel="stylesheet" href="styles/custom.css" />
+
+    <script src="https://kendo.cdn.telerik.com/2017.2.504/js/jquery.min.js"></script>
+    <script src="https://kendo.cdn.telerik.com/2017.2.504/js/kendo.all.min.js"></script>
+    <link rel="stylesheet" href="http://demos.telerik.com/kendo-ui/content/shared/styles/examples-offline.css">
+</head>
+<body>
+<div id="example">
+    <div class="demo-section k-content wide">
+        <div>
+			<a class="k-button" href="#" id="cartModal"><span class="k-icon k-i-cart"></span>My Cart</a>
+			<a class="k-button" href="#" id="emptyCart" data-bind="click: clearCart"><span class="k-icon k-i-delete"></span>Empty Cart</a>
+            <div id="listview"
+				data-role="listview"
+				data-template="template"
+				data-bind="source: products,
+				visible: isVisible,
+				events: {
+				save: onSave
+				}"
+				style="height: 900px; overflow: auto">
+			</div>
+        </div>
+    </div>
+	
+	<div id="cart">
+		<h4>Cart</h4>
+		<div id="grid"></div>
+		<div id="gridTotals"></div>
+	</div>
+
+	<div id="confirm"></div>
+    <div id="dialog"></div>
+	
+    <script type="text/x-kendo-tmpl" id="template">
+        <div class="product-view k-widget">
+            <dl>
+                <dt>Product Id</dt>
+                <dd>#:Id#</dd>
+                <dt>Product Name</dt>
+                <dd>#:Name#</dd>
+                <dt>Category</dt>
+                <dd>#:Category#</dd>
+                <dt>Unit Price</dt>
+                <dd>#:kendo.toString(Price, "c")#</dd>
+                <dt>Price</dt>
+                <dd id="#:Id#-price">#:kendo.toString(0, "c")#</dd>
+                <dt>Units In Stock</dt>
+                <dd id="#:Id#-stock">#:Stock#</dd>
+                <dt>Available</dt>
+                <dd>#:Availability#</dd>
+            </dl>
+            <div class="edit-buttons">
+                <span class="k-icon k-i-plus" 
+					data-bind="click: increaseQuantity" 
+					data-id="#:Id#" 
+					data-name="#:Name#" 
+					data-category="#:Category#" 
+					data-stock="#:Stock#" 
+					data-price="#:Price#" 
+					data-availability="#:Availability#">
+				</span> 
+                <span class="k-icon k-i-minus" 
+					data-bind="click: decreaseQuantity" 
+					data-id="#:Id#" 
+					data-name="#:Name#" 
+					data-category="#:Category#" 
+					data-stock="#:Stock#" 
+					data-price="#:Price#"
+					data-availability="#:Availability#">
+				</span> 
+				<input type="text" id="#:Id#-quantity" maxlength="2" size="2" value="0" style="text-align: center;" 
+					data-id="#:Id#" 
+					data-name="#:Name#" 
+					data-category="#:Category#" 
+					data-stock="#:Stock#" 
+					data-price="#:Price#"
+					data-availability="#:Availability#"
+					readonly />
+					<span class="k-icon k-i-save" 
+						data-bind="click: updateCart" 
+						data-id="#:Id#" 
+						data-name="#:Name#" 
+						data-category="#:Category#" 
+						data-stock="#:Stock#" 
+						data-price="#:Price#"
+						data-availability="#:Availability#">
+						Add to Cart
+					</span>
+            </div>
+        </div>
+    </script>
+	
+	<script src="index-model.js" type="text/javascript"></script>
+</div>
+</body>
+</html>
